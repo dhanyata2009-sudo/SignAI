@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SignAI | Hand Gesture Recognition</title>
+<link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+
+<div id="app">
+  <header>
+    <h1>Sign<span>Language</span>Recognition</h1>
+    <button class="btn" id="guideBtn">Guide</button>
+    <button class="btn" id="trainBtn">Train 🔒</button>
+    <button class="btn" id="menuBtn">⋮</button>
+  </header>
+
+  <div class="stage">
+    <video id="video" autoplay playsinline muted></video>
+    <canvas id="overlay"></canvas>
+    <div class="status-pill" id="statusPill">Loading…</div>
+    <div id="loading"><div class="spinner"></div><div id="loadingText">Loading hand-tracking model…</div></div>
+  </div>
+
+  <div class="train-bar" id="trainBar">
+    <span style="font-size:13px;">Sign:</span>
+    <select id="labelSelect"></select>
+    <button class="btn primary" id="recordBtn">Record</button>
+  </div>
+
+  <div class="result">
+    <div class="sign" id="signText">—</div>
+    <div class="conf" id="confText">Allow camera access to begin</div>
+  </div>
+
+  <div class="sentence" id="sentenceBox">
+    Sentence:
+    <span class="hint">Click to clear · signs are appended automatically when held steady</span>
+  </div>
+</div>
+
+<!-- Guide modal -->
+<div class="modal-bg" id="guideModal">
+  <div class="modal">
+    <h2>How to make each built-in sign</h2>
+    <p class="muted">Hold your hand 40–60cm from the camera, palm facing it, plain background behind it.</p>
+    <div id="guideList"></div>
+    <div class="row"><button class="btn primary" id="guideClose">Close</button></div>
+  </div>
+</div>
+
+<!-- PIN modal -->
+<div class="modal-bg" id="pinModal">
+  <div class="modal" style="max-width:340px;">
+    <h2 id="pinTitle">Admin login</h2>
+    <p class="muted" id="pinMsg">Training mode is restricted to authorised users.</p>
+    <input type="password" id="pinInput" placeholder="Enter PIN" inputmode="numeric">
+    <div class="row">
+      <button class="btn" id="pinCancel">Cancel</button>
+      <button class="btn primary" id="pinOk">OK</button>
+    </div>
+  </div>
+</div>
+
+<!-- Menu modal -->
+<div class="modal-bg" id="menuModal">
+  <div class="modal" style="max-width:360px;">
+    <h2>Menu</h2>
+    <div id="menuList"></div>
+    <div class="row"><button class="btn" id="menuClose">Close</button></div>
+  </div>
+</div>
+
+<!-- Add sign modal -->
+<div class="modal-bg" id="addSignModal">
+  <div class="modal" style="max-width:340px;">
+    <h2>New sign name</h2>
+    <input type="text" id="addSignInput" placeholder="e.g. GOOD MORNING" style="text-transform:uppercase;">
+    <div class="row">
+      <button class="btn" id="addSignCancel">Cancel</button>
+      <button class="btn primary" id="addSignOk">Add</button>
+    </div>
+  </div>
+</div>
+
+<!-- Info modal (generic message box) -->
+<div class="modal-bg" id="infoModal">
+  <div class="modal" style="max-width:400px;">
+    <h2 id="infoTitle">Info</h2>
+    <p class="muted" id="infoMsg" style="white-space:pre-wrap;"></p>
+    <div class="row"><button class="btn primary" id="infoClose">OK</button></div>
+  </div>
+</div>
+
+<div id="toast" style="position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+  background:#20222b;border:1px solid var(--border);padding:10px 16px;border-radius:8px;
+  font-size:13px;display:none;z-index:100;"></div>
+
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>
